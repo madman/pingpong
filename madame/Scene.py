@@ -4,8 +4,8 @@ import const
 class Scene:
 	"""Base scene class"""
 
-	def __init__(self, next_scene = None):
-		self.__next_scene = next_scene
+	def __init__(self):
+		pass
 
 	def _start(self):
 		pass
@@ -34,7 +34,6 @@ class Scene:
 	def __event(self, event):
 		if len(event.get(pygame.QUIT)) > 0:
 			self.__end = True
-			self.set_next_scene(None)
 			return
 
 		self._event(event)
@@ -43,14 +42,8 @@ class Scene:
 			if e.type == const.END_SCENE:
 				self.__end = True
 
-	def next(self):
-		return self.__next_scene
-
 	def is_end(self):
 		return self.__end
 
 	def the_end(self):
 		pygame.event.post(pygame.event.Event(const.END_SCENE))
-
-	def set_next_scene(self, scene):
-		self.__next_scene = scene
